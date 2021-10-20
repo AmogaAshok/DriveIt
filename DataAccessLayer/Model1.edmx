@@ -1,0 +1,320 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DriveItModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BookingTb">
+          <Key>
+            <PropertyRef Name="BookingId" />
+          </Key>
+          <Property Name="BookingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerId" Type="int" Nullable="false" />
+          <Property Name="BookingDate" Type="date" Nullable="false" />
+          <Property Name="VehicleId" Type="int" />
+        </EntityType>
+        <EntityType Name="CustomerDetails">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+          </Key>
+          <Property Name="CustomerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DOB" Type="varchar" MaxLength="50" />
+          <Property Name="PhoneNo" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="varchar" MaxLength="50" />
+          <Property Name="password" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ServiceTb">
+          <Key>
+            <PropertyRef Name="ServiceId" />
+          </Key>
+          <Property Name="ServiceId" Type="int" Nullable="false" />
+          <Property Name="VehicleId" Type="int" />
+          <Property Name="CustomerId" Type="int" Nullable="false" />
+          <Property Name="ServiceDate" Type="date" Nullable="false" />
+          <Property Name="Message" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="VehicleTb">
+          <Key>
+            <PropertyRef Name="VehicleId" />
+          </Key>
+          <Property Name="VehicleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VehicleName" Type="varchar" MaxLength="50" />
+          <Property Name="VehicleType" Type="varchar" MaxLength="50" />
+          <Property Name="VehiclePrice" Type="int" />
+          <Property Name="VehicleAvailability" Type="varchar" MaxLength="50" />
+          <Property Name="VehicleImage" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_BookingTb_CustomerDetails">
+          <End Role="CustomerDetails" Type="Self.CustomerDetails" Multiplicity="1" />
+          <End Role="BookingTb" Type="Self.BookingTb" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerDetails">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="BookingTb">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookingTb_VehicleTb">
+          <End Role="VehicleTb" Type="Self.VehicleTb" Multiplicity="0..1" />
+          <End Role="BookingTb" Type="Self.BookingTb" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VehicleTb">
+              <PropertyRef Name="VehicleId" />
+            </Principal>
+            <Dependent Role="BookingTb">
+              <PropertyRef Name="VehicleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServiceTb_CustomerDetails">
+          <End Role="CustomerDetails" Type="Self.CustomerDetails" Multiplicity="1" />
+          <End Role="ServiceTb" Type="Self.ServiceTb" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerDetails">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="ServiceTb">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServiceTb_VehicleTb">
+          <End Role="VehicleTb" Type="Self.VehicleTb" Multiplicity="0..1" />
+          <End Role="ServiceTb" Type="Self.ServiceTb" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VehicleTb">
+              <PropertyRef Name="VehicleId" />
+            </Principal>
+            <Dependent Role="ServiceTb">
+              <PropertyRef Name="VehicleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DriveItModelStoreContainer">
+          <EntitySet Name="BookingTb" EntityType="Self.BookingTb" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CustomerDetails" EntityType="Self.CustomerDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ServiceTb" EntityType="Self.ServiceTb" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VehicleTb" EntityType="Self.VehicleTb" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_BookingTb_CustomerDetails" Association="Self.FK_BookingTb_CustomerDetails">
+            <End Role="CustomerDetails" EntitySet="CustomerDetails" />
+            <End Role="BookingTb" EntitySet="BookingTb" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookingTb_VehicleTb" Association="Self.FK_BookingTb_VehicleTb">
+            <End Role="VehicleTb" EntitySet="VehicleTb" />
+            <End Role="BookingTb" EntitySet="BookingTb" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServiceTb_CustomerDetails" Association="Self.FK_ServiceTb_CustomerDetails">
+            <End Role="CustomerDetails" EntitySet="CustomerDetails" />
+            <End Role="ServiceTb" EntitySet="ServiceTb" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServiceTb_VehicleTb" Association="Self.FK_ServiceTb_VehicleTb">
+            <End Role="VehicleTb" EntitySet="VehicleTb" />
+            <End Role="ServiceTb" EntitySet="ServiceTb" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DriveItModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BookingTb">
+          <Key>
+            <PropertyRef Name="BookingId" />
+          </Key>
+          <Property Name="BookingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="BookingDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="VehicleId" Type="Int32" />
+          <NavigationProperty Name="CustomerDetail" Relationship="Self.FK_BookingTb_CustomerDetails" FromRole="BookingTb" ToRole="CustomerDetails" />
+          <NavigationProperty Name="VehicleTb" Relationship="Self.FK_BookingTb_VehicleTb" FromRole="BookingTb" ToRole="VehicleTb" />
+        </EntityType>
+        <EntityType Name="CustomerDetail">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+          </Key>
+          <Property Name="CustomerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DOB" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="BookingTbs" Relationship="Self.FK_BookingTb_CustomerDetails" FromRole="CustomerDetails" ToRole="BookingTb" />
+          <NavigationProperty Name="ServiceTbs" Relationship="Self.FK_ServiceTb_CustomerDetails" FromRole="CustomerDetails" ToRole="ServiceTb" />
+        </EntityType>
+        <EntityType Name="ServiceTb">
+          <Key>
+            <PropertyRef Name="ServiceId" />
+          </Key>
+          <Property Name="ServiceId" Type="Int32" Nullable="false" />
+          <Property Name="VehicleId" Type="Int32" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="ServiceDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Message" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CustomerDetail" Relationship="Self.FK_ServiceTb_CustomerDetails" FromRole="ServiceTb" ToRole="CustomerDetails" />
+          <NavigationProperty Name="VehicleTb" Relationship="Self.FK_ServiceTb_VehicleTb" FromRole="ServiceTb" ToRole="VehicleTb" />
+        </EntityType>
+        <EntityType Name="VehicleTb">
+          <Key>
+            <PropertyRef Name="VehicleId" />
+          </Key>
+          <Property Name="VehicleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VehicleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="VehicleType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="VehiclePrice" Type="Int32" />
+          <Property Name="VehicleAvailability" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="VehicleImage" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="BookingTbs" Relationship="Self.FK_BookingTb_VehicleTb" FromRole="VehicleTb" ToRole="BookingTb" />
+          <NavigationProperty Name="ServiceTbs" Relationship="Self.FK_ServiceTb_VehicleTb" FromRole="VehicleTb" ToRole="ServiceTb" />
+        </EntityType>
+        <Association Name="FK_BookingTb_CustomerDetails">
+          <End Role="CustomerDetails" Type="Self.CustomerDetail" Multiplicity="1" />
+          <End Role="BookingTb" Type="Self.BookingTb" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerDetails">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="BookingTb">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookingTb_VehicleTb">
+          <End Role="VehicleTb" Type="Self.VehicleTb" Multiplicity="0..1" />
+          <End Role="BookingTb" Type="Self.BookingTb" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VehicleTb">
+              <PropertyRef Name="VehicleId" />
+            </Principal>
+            <Dependent Role="BookingTb">
+              <PropertyRef Name="VehicleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServiceTb_CustomerDetails">
+          <End Role="CustomerDetails" Type="Self.CustomerDetail" Multiplicity="1" />
+          <End Role="ServiceTb" Type="Self.ServiceTb" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerDetails">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="ServiceTb">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServiceTb_VehicleTb">
+          <End Role="VehicleTb" Type="Self.VehicleTb" Multiplicity="0..1" />
+          <End Role="ServiceTb" Type="Self.ServiceTb" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VehicleTb">
+              <PropertyRef Name="VehicleId" />
+            </Principal>
+            <Dependent Role="ServiceTb">
+              <PropertyRef Name="VehicleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DriveItEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BookingTbs" EntityType="Self.BookingTb" />
+          <EntitySet Name="CustomerDetails" EntityType="Self.CustomerDetail" />
+          <EntitySet Name="ServiceTbs" EntityType="Self.ServiceTb" />
+          <EntitySet Name="VehicleTbs" EntityType="Self.VehicleTb" />
+          <AssociationSet Name="FK_BookingTb_CustomerDetails" Association="Self.FK_BookingTb_CustomerDetails">
+            <End Role="CustomerDetails" EntitySet="CustomerDetails" />
+            <End Role="BookingTb" EntitySet="BookingTbs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookingTb_VehicleTb" Association="Self.FK_BookingTb_VehicleTb">
+            <End Role="VehicleTb" EntitySet="VehicleTbs" />
+            <End Role="BookingTb" EntitySet="BookingTbs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServiceTb_CustomerDetails" Association="Self.FK_ServiceTb_CustomerDetails">
+            <End Role="CustomerDetails" EntitySet="CustomerDetails" />
+            <End Role="ServiceTb" EntitySet="ServiceTbs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServiceTb_VehicleTb" Association="Self.FK_ServiceTb_VehicleTb">
+            <End Role="VehicleTb" EntitySet="VehicleTbs" />
+            <End Role="ServiceTb" EntitySet="ServiceTbs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DriveItModelStoreContainer" CdmEntityContainer="DriveItEntities1">
+          <EntitySetMapping Name="BookingTbs">
+            <EntityTypeMapping TypeName="DriveItModel.BookingTb">
+              <MappingFragment StoreEntitySet="BookingTb">
+                <ScalarProperty Name="BookingId" ColumnName="BookingId" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="BookingDate" ColumnName="BookingDate" />
+                <ScalarProperty Name="VehicleId" ColumnName="VehicleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerDetails">
+            <EntityTypeMapping TypeName="DriveItModel.CustomerDetail">
+              <MappingFragment StoreEntitySet="CustomerDetails">
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ServiceTbs">
+            <EntityTypeMapping TypeName="DriveItModel.ServiceTb">
+              <MappingFragment StoreEntitySet="ServiceTb">
+                <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
+                <ScalarProperty Name="VehicleId" ColumnName="VehicleId" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="ServiceDate" ColumnName="ServiceDate" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VehicleTbs">
+            <EntityTypeMapping TypeName="DriveItModel.VehicleTb">
+              <MappingFragment StoreEntitySet="VehicleTb">
+                <ScalarProperty Name="VehicleId" ColumnName="VehicleId" />
+                <ScalarProperty Name="VehicleName" ColumnName="VehicleName" />
+                <ScalarProperty Name="VehicleType" ColumnName="VehicleType" />
+                <ScalarProperty Name="VehiclePrice" ColumnName="VehiclePrice" />
+                <ScalarProperty Name="VehicleAvailability" ColumnName="VehicleAvailability" />
+                <ScalarProperty Name="VehicleImage" ColumnName="VehicleImage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

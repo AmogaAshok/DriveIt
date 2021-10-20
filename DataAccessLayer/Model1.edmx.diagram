@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="23074ba6fb9946ee9cf56f9da6927e47" Name="Diagram1">
+        <EntityTypeShape EntityType="DriveItModel.BookingTb" Width="1.5" PointX="3" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DriveItModel.CustomerDetail" Width="1.5" PointX="0.75" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DriveItModel.ServiceTb" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DriveItModel.VehicleTb" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
+        <AssociationConnector Association="DriveItModel.FK_BookingTb_CustomerDetails" ManuallyRouted="false" />
+        <AssociationConnector Association="DriveItModel.FK_BookingTb_VehicleTb" ManuallyRouted="false" />
+        <AssociationConnector Association="DriveItModel.FK_ServiceTb_CustomerDetails" ManuallyRouted="false" />
+        <AssociationConnector Association="DriveItModel.FK_ServiceTb_VehicleTb" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
